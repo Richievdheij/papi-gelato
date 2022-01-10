@@ -9,7 +9,9 @@ def bolletjes():
 
             if hoeveelBolletjes >= 4 and hoeveelBolletjes <= 8:
                 print(f"Dan krijgt u van mij een bakje met {hoeveelBolletjes} bolletjes")
-
+                bolletjeHoorntje = "Bakje"
+                stap3(bolletjeHoorntje, hoeveelBolletjes)
+                
             elif hoeveelBolletjes > 8:
                 print("Sorry, zulke grote bakken hebben we niet")
 
@@ -25,25 +27,27 @@ def bolletjes():
 def stap2(aantalBolletjes):
     askQuestion = True
     while askQuestion:
-        bolletjeHoorntje = input(f"Wilt u deze {aantalBolletjes} bolletje(s) in A) een hoorntje of B) een bakje?").lower()
+        bolletjeHoorntje = input(f"Wilt u deze {aantalBolletjes} bolletje(s) in A) een hoorntje of B) een bakje? ").lower()
         if bolletjeHoorntje == "a" or bolletjeHoorntje == "b":
-            stap3()
+            bolletjeHoorntje = "bakje" if bolletjeHoorntje == "b" else "hoorntje"
+            stap3(bolletjeHoorntje, aantalBolletjes)
 
         else:
             print("Sorry, dat snap ik niet...")
         
 
 
-def stap3(bolletjeHoorntje, hoeveelBolletjes):
+def stap3(bolletjeHoorntje, aantalBolletjes):
     askQuestion = True
     while askQuestion:
-        totaalBolletjes = input(f"Hier is uw {bolletjeHoorntje} met {hoeveelBolletjes} bolletje(s). Wilt u nog meer bestellen? (Y/N)").lower()
+        totaalBolletjes = input(f"Hier is uw {bolletjeHoorntje} met {aantalBolletjes} bolletje(s). Wilt u nog meer bestellen? (Y/N) ").lower()
         if totaalBolletjes == "y":
             bolletjes()
-
+            
         elif totaalBolletjes == "n":
             print("Bedankt en tot ziens!")
-
+            askQuestion = False
+            
         else:
             print("Sorry, dat snap ik niet...")
         
@@ -57,4 +61,18 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
+def smaken():
+    for x in range(1, bolletjes+1):
+        askQuestion = True
+        while askQuestion:
+            bolletjeSmaak = input(f"Welke smaak wilt u voor bolletje nummer {x}? A) Aardbei, C) Chocolade, M) Munt of V) Vanille?").upper()
+            if bolletjeSmaak == "A" or bolletjeSmaak == "C" or bolletjeSmaak == "M" or bolletjeSmaak == "V":
+                print("")
+                askQuestion = False
+
+            else:
+                print("Sorry dat snap ik niet...")
     
