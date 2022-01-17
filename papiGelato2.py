@@ -61,6 +61,7 @@ print("Welkom bij Papi Gelato")
 
 hoeveelBolletjes = 0
 bolletjeHoorntje = 0
+topping = 0
 
 
 def bolletjes():
@@ -71,6 +72,7 @@ def bolletjes():
         hoeveelBolletjes = input("Hoeveel bolletjes wilt u? ")
         if hoeveelBolletjes.isdigit():
             hoeveelBolletjes = int(hoeveelBolletjes)
+            smaken()
 
             if hoeveelBolletjes >= 4 and hoeveelBolletjes <= 8:
                 print(f"Dan krijgt u van mij een bakje met {hoeveelBolletjes} bolletjes")
@@ -96,7 +98,7 @@ def stap2(aantalBolletjes):
         bolletjeHoorntje = input(f"Wilt u deze {aantalBolletjes} bolletje(s) in A) een hoorntje of B) een bakje? ").lower()
         if bolletjeHoorntje == "a" or bolletjeHoorntje == "b":
             bolletjeHoorntje = "bakje" if bolletjeHoorntje == "b" else "hoorntje"
-            stap3(bolletjeHoorntje, aantalBolletjes)
+            tops()
             askQuestion = False
 
         else:
@@ -123,21 +125,48 @@ def stap3(bolletjeHoorntje, aantalBolletjes):
         
 
 def smaken():
-    for x in range(1, bolletjes+1):
+    for x in range(1, hoeveelBolletjes+1):
         askQuestion = True
         while askQuestion:
-            bolletjeSmaak = input(f"Welke smaak wilt u voor bolletje nummer {x}? A) Aardbei, C) Chocolade, M) Munt of V) Vanille?").upper()
+            bolletjeSmaak = input(f"Welke smaak wilt u voor bolletje nummer {x}? A) Aardbei, C) Chocolade, M) Munt of V) Vanille? ").upper()
             if bolletjeSmaak == "A" or bolletjeSmaak == "C" or bolletjeSmaak == "M" or bolletjeSmaak == "V":
                 print("")
                 askQuestion = False
-
+        
             else:
                 print("Sorry dat snap ik niet...")
-    
+
+
+def tops():
+    global topping
+    smaak = ("geen", "slagroom", "sprinkels", "caramel saus")
+    choice = ("a", "b", "c", "d")
+    askQuestion = True
+    while askQuestion:
+        input_answer = input(f"Wat voor topping wilt u: A) Geen, B) Slagroom, C) Sprinkels of D) Caramel Saus? ").upper()
+        if input_answer in choice:
+            askQuestion = False   
+            index = choice.index(input_answer)
+            topping = smaak[index].replace(" ", "_")
+            
+            
+        else:
+            print("Sorry dat snap ik niet...")
+
+
 
 def add_items():
     items['bolletje']['amount'] += hoeveelBolletjes
     items[bolletjeHoorntje]['amount'] += 1
+
+    try:
+        toppings[topping]['amount'][bolletjeHoorntje] += 1
+    except KeyError:
+        pass
+    finally:
+        toppings[topping]['amount'] += 1
+
+
 
 
 
